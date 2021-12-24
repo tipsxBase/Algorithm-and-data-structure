@@ -37,34 +37,36 @@ var preorderTraversal = function (root) {
     const res = []
     let current = root
     let stack = []
+    let flag = false // 访问左结点
     while(current){
-        res.push(current.val)
-        if(current.left) {
+        if(!flag){
+            // 只有在访问左结点的情况下，当前结点才能入栈，因为前序是根左右，当flag = true 时，当前结点已经访问过了
+            res.push(current.val)
             stack.push(current)
+        }
+        if(!flag && current.left) {
             current = current.left
-        } else if(current.right) {
-            current = current.right
-            stack.push(current)
-        }else {
-            if(stack.length === 0) {
-                break
+        }else if(flag){
+            // 访问右结点，如果右结点为空，则出栈访问父结点的右结点
+            if(current.right) {
+                current = current.right
+                flag = false // 访问完右结点，则继续从先访问左结点
             }else {
                 current = stack.pop()
-                current = current.right
+                flag = true
             }
+        }else {
+            // 左结点为空，则需要访问当前结点的右结点
+            flag = true
+            current = stack.pop()
         }
-       
+        
     }
     return res
 };
+    
 
 
-                                     1
-                        2                           3
-                4               5           6               7
-            7       8    null       10  11      12      13      14       
+// const tree = createBinaryTree([1,4,3,2])
 
-
-const tree = createBinaryTree([1,4,3,2])
-
-console.log(preorderTraversal(tree))
+// console.log(preorderTraversal(tree))
