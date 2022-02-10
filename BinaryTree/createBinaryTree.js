@@ -5,24 +5,38 @@ function TreeNode(val, left, right) {
 }
 
 function createBinaryTree(nodes) {
-    let root = null
-    let current = null
-    let stack = []
-    let toRight = false
-    let i = 0
-    while(i < nodes.length){
-        let n = nodes[i]
-        let node = new TreeNode(n)
-        if(i === 0){
-            root = current = node
-            if(nodes[i + 1] !== null) {
-                current.left = new TreeNode(nodes[i + 1])
-                stack.push(current.left)
-            }
-            if(nodes[i + 1] !== null)
-        }
+  if (nodes.length === 0) {
+    return null;
+  }
+  let root = null;
+  let node = nodes.shift();
+  let parent = new TreeNode(node);
+  root = parent;
+  let bitOrder = 0;
+  const queue = [];
+  while (nodes.length > 0) {
+    node = nodes.shift();
+    if (bitOrder > 1) {
+      parent = queue.shift();
+      bitOrder = 0;
     }
+    if (node === null) {
+      bitOrder++;
+      continue;
+    }
+    const treeNode = new TreeNode(node);
+    queue.push(treeNode);
+    if (bitOrder === 0) {
+      parent.left = treeNode;
+      bitOrder++;
+    } else if (bitOrder === 1) {
+      parent.right = treeNode;
+      bitOrder++;
+    }
+  }
+  return root;
 }
 
-
-module.exports = createBinaryTree
+// const tree = createBinaryTree([1, 2, 2, 3, 3, null, null, 4, 4]);
+// console.log(tree);
+module.exports = createBinaryTree;
