@@ -23,6 +23,7 @@ function pop(heap) {
   const first = heap[0];
   if (first) {
     const last = heap.pop();
+    // 将最后一个节点，放在第一个节点的位置（第一个节点将要被弹出）,然后将最后一个节点调整到合适的位置
     if (first !== last) {
       heap[0] = last;
       shiftDown(heap, last, 0);
