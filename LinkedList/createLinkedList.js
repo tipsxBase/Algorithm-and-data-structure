@@ -18,4 +18,19 @@ function createLinkedList(target) {
   return head;
 }
 
+
+
+function printLinkedList(head) {
+	let current = head
+	console.log(head);
+	let res = []
+	while(current) {
+		res.push(current.val)
+		current = current.next
+	}
+	console.log(res.join(' => '))
+}
+
+createLinkedList.printLinkedList = printLinkedList
+
 module.exports = createLinkedList;
