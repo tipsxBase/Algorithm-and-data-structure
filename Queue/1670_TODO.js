@@ -25,8 +25,8 @@ FrontMiddleBackQueue.prototype.pushFront = function (val) {
     node.next = this.head;
     this.head.prev = node;
     this.head = node;
-    // 如果插入之前是偶数长度，则不需要移动middle指针
-    //3 2 1
+		// 6 5 1 2 3 4
+    // 如果插入之前是偶数长度，则需要移动middle指针
     if (this.size % 2 === 0) {
       this.middle = this.middle.prev;
     }
