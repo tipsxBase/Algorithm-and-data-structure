@@ -1,15 +1,15 @@
 interface INode {
 	value: unknown,
-	next: INode
+	next: INode | null
 }
 
 /**
  * 指针形式的链表
  */
-class LinkedNode implements INode{
+class LinkedNode implements INode {
 	value: unknown;
-	next: INode;
-	constructor(value: unknown, next = null){
+	next: INode | null;
+	constructor(value: unknown, next = null) {
 		this.value = value
 		this.next = next
 	}
@@ -23,7 +23,7 @@ class LinkedList {
 		this.size = 1
 	}
 
-	get length(){
+	get length() {
 		return this.size
 	}
 
@@ -32,13 +32,13 @@ class LinkedList {
 	 * @param index 要添加的位置，从0开始计算
 	 * @param value 要添加的值
 	 */
-	add(index: number, value: unknown){
-		if(index > this.size || index < 0){
+	add(index: number, value: unknown) {
+		if (index > this.size || index < 0) {
 			throw '越界'
 		}
 		let current = this.head
 		index = index - 1 // current已经指向头，所以 index 后移一位
-		while(current && index > 0){
+		while (current && index > 0) {
 			current = current.next
 			index--
 		}
@@ -52,14 +52,14 @@ class LinkedList {
 	 * 
 	 * @param index 要删除的位置从0开始计算
 	 */
-	remove(index: number){
-		if(index > this.size || index < 0){
+	remove(index: number) {
+		if (index > this.size || index < 0) {
 			throw '越界'
 		}
 		let current = this.head
 		index = index - 1
 		// index > 1 表示要删除节点的前一个节点
-		while(current && index > 0){
+		while (current && index > 0) {
 			current = current.next
 			index--
 		}
